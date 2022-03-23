@@ -5,6 +5,8 @@
 #include "Transform2D.h"
 #include "Fruit.h"
 #include "SpriteComponent.h"
+#include "GameManager.h"
+#include "AABBCollider.h"
 
 Maze::TileKey _ = Maze::TileKey::OPEN;
 Maze::TileKey w = Maze::TileKey::WALL;
@@ -23,7 +25,7 @@ Maze::Maze()
 	TileKey map[Maze::HEIGHT][Maze::WIDTH] = {
 		{ w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w },
 		{ w, _, _, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, _, w },
-		{ w, _, f, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, _, w },
+		{ w, _, f, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, f, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, w, w, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, w, w, w },
@@ -57,7 +59,11 @@ Maze::Maze()
 
 
 	m_player = new Player(0, 0, "Player", 200, 50);
+	m_ghost = new Ghost(0, 0, 200, 150, 0xFF6666FF, this);
 	m_fruit = new Fruit(0, 0);
+	m_goal = new Actor(0, 0, "Goal");
+	GameManager::getInstance()->init(m_ghost, m_fruit, m_goal);
+
 	//Generate the map
 	generate(map);
 }
@@ -120,9 +126,9 @@ Maze::Tile Maze::createTile(int x, int y, TileKey key)
 	case TileKey::GHOST:
 	{
 		tile.cost = 1.0f;
-		Ghost* ghost = new Ghost(position.x, position.y, 200, 150, 0xFF6666FF, this);
-		ghost->setTarget(m_fruit);
-		tile.actor = ghost;
+		m_ghost->getTransform()->setWorldPostion(position);
+		m_ghost->setTarget(m_fruit);
+		tile.actor = m_ghost;
 		addActor(tile.actor);
 		break;
 	}
@@ -137,10 +143,11 @@ Maze::Tile Maze::createTile(int x, int y, TileKey key)
 	case TileKey::GOAL:
 	{
 		tile.cost = 1.0f;
-		Actor* goal = new Actor(position.x, position.y, "Goal");
-		goal->addComponent(new SpriteComponent("Images/bullet.png"));
-		goal->getTransform()->setScale({ TILE_SIZE + 50, TILE_SIZE + 50});
-		tile.actor = goal;
+		m_goal->getTransform()->setWorldPostion(position);
+		m_goal->addComponent(new SpriteComponent("Images/bullet.png"));
+		m_goal->getTransform()->setScale({ TILE_SIZE + 50, TILE_SIZE + 50});
+		m_goal->setCollider(new AABBCollider(Maze::TILE_SIZE, Maze::TILE_SIZE, m_goal));
+		tile.actor = m_goal;
 		addActor(tile.actor);
 		break;
 	}

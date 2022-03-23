@@ -5,13 +5,12 @@
 #include "PathfindComponent.h"
 #include "Transform2D.h"
 #include "Fruit.h"
+#include "GameManager.h"
+#include "Ghost.h"
 
 void StateMachineComponent::start()
 {
 	Component::start();
-
-	m_seekComponent = getOwner()->getComponent<SeekComponent>();
-	m_seekForce = m_seekComponent->getSteeringForce();
 
 	m_pathfindComp = getOwner()->getComponent<PathfindComponent>();
 
@@ -31,19 +30,37 @@ void StateMachineComponent::update(float deltaTime)
 		m_pathfindComp->setEnabled(false);
 		m_wanderComponent->setSteeringForce(0);
 
-		if (m_fruit->getActive())
+		if (GameManager::getInstance()->getFruit()->getActive())
 			setCurrentState(SEEKFRUIT);
 
 		break;
 	case SEEKFRUIT:
-		
+		m_pathfindComp->setEnabled(true);
+		m_wanderComponent->setSteeringForce(0);
+		m_pathfindComp->setTarget(GameManager::getInstance()->getFruit());
+
+		if (GameManager::getInstance()->getGhost()->getHasFruit())
+			setCurrentState(SEEKGOAL);
 
 		break;
 	case SEEKGOAL:
+		m_pathfindComp->setEnabled(true);
+		m_wanderComponent->setSteeringForce(0);
+		m_pathfindComp->setTarget(GameManager::getInstance()->getGoal());
+
+		if (GameManager::getInstance()->getGhost()->getHasFruit() == false && GameManager::getInstance()->getFruit()->getActive())
+			setCurrentState(SEEKFRUIT);
+		else if (GameManager::getInstance()->getGhost()->getHasFruit() == false && GameManager::getInstance()->getFruit()->getActive() == false)
+			setCurrentState(WANDERMAZE);
 
 		break;
 
 	case WANDERMAZE:
+		m_pathfindComp->setEnabled(false);
+		m_wanderComponent->setSteeringForce(300);
+
+		if (GameManager::getInstance()->getFruit()->getActive())
+			setCurrentState(SEEKFRUIT);
 
 		break;
 	}

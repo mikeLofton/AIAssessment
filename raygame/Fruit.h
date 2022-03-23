@@ -10,6 +10,8 @@ public:
 
 	void draw() override;
 
+	void onCollision(Actor* other) override;
+
 private:
 };
 

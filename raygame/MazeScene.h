@@ -6,6 +6,7 @@
 
 class Player;
 class Fruit;
+class Ghost;
 
 /// <summary>
 /// A Scene that generates a grid of Walls.
@@ -91,5 +92,7 @@ private:
 
 	Player* m_player;
 	Fruit* m_fruit;
+	Actor* m_goal;
+	Ghost* m_ghost;
 };
 

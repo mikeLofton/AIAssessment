@@ -3,6 +3,7 @@
 #include "Transform2D.h"
 #include "MazeScene.h"
 #include "AABBCollider.h"
+#include "Ghost.h"
 
 Fruit::Fruit(float x, float y) : Actor(x, y, "Fruit")
 {
@@ -22,4 +23,9 @@ void Fruit::draw()
 	Actor::draw();
 
 	getCollider()->draw();
+}
+
+void Fruit::onCollision(Actor* other)
+{
+	
 }

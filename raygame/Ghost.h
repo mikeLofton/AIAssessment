@@ -28,10 +28,14 @@ public:
 	/// <param name="target">The new target</param>
 	void setTarget(Actor* target);
 
+	bool getHasFruit() { return m_hasFruit; }
+	void setHasFruit(bool value) { m_hasFruit = value; }
+
 private:
 	PathfindComponent* m_pathfindComponent;
 	Maze* m_maze;
 
 	Actor* m_target = nullptr;
+	bool m_hasFruit;
 };
 
