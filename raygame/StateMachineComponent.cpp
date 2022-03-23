@@ -21,12 +21,6 @@ void StateMachineComponent::update(float deltaTime)
 {
 	Component::update(deltaTime);
 
-	MathLibrary::Vector2 targetPos = m_seekComponent->getTarget()->getTransform()->getWorldPosition();
-	MathLibrary::Vector2 ownerPos = getOwner()->getTransform()->getWorldPosition();
-	float distanceFromTarget = (targetPos - ownerPos).getMagnitude();
-
-	bool targetInRange = distanceFromTarget <= m_seekRange;
-
 	switch (m_currentState)
 	{
 	case IDLE:

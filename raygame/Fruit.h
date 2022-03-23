@@ -7,6 +7,9 @@ public:
 	Fruit(float x, float y);
 
 	void start() override;
+
+	void draw() override;
+
 private:
 };
 

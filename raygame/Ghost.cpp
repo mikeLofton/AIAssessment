@@ -16,7 +16,7 @@ Ghost::Ghost(float x, float y, float maxSpeed, float maxForce, int color, Maze* 
 	m_pathfindComponent = new PathfindComponent(maze);
 	m_pathfindComponent->setColor(color);
 	addComponent(m_pathfindComponent);
-	addComponent(new SpriteComponent("Images/enemy.png"));
+	addComponent(new SpriteComponent("Images/Turtle.png"));
 }
 
 Ghost::~Ghost()

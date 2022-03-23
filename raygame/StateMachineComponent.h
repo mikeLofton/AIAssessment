@@ -4,8 +4,9 @@
 enum State
 {
 	IDLE,
-	WANDER,
-	SEEK
+	SEEKFRUIT,
+	SEEKGOAL,
+	WANDERMAZE
 };
 
 class SeekComponent;

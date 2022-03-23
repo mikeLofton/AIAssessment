@@ -5,6 +5,7 @@
 
 
 class Player;
+class Fruit;
 
 /// <summary>
 /// A Scene that generates a grid of Walls.
@@ -23,7 +24,8 @@ public:
 		MUD,
 		PLAYER,
 		GHOST,
-		FRUIT
+		FRUIT,
+		GOAL
 	};
 
 	/// <summary>
@@ -88,5 +90,6 @@ private:
 	Tile m_grid[WIDTH][HEIGHT];
 
 	Player* m_player;
+	Fruit* m_fruit;
 };
 

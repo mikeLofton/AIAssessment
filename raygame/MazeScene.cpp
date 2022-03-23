@@ -3,6 +3,8 @@
 #include "Wall.h"
 #include "Ghost.h"
 #include "Transform2D.h"
+#include "Fruit.h"
+#include "SpriteComponent.h"
 
 Maze::TileKey _ = Maze::TileKey::OPEN;
 Maze::TileKey w = Maze::TileKey::WALL;
@@ -10,6 +12,7 @@ Maze::TileKey s = Maze::TileKey::MUD;
 Maze::TileKey p = Maze::TileKey::PLAYER;
 Maze::TileKey g = Maze::TileKey::GHOST;
 Maze::TileKey f = Maze::TileKey::FRUIT;
+Maze::TileKey o = Maze::TileKey::GOAL;
 
 Maze::Maze()
 {
@@ -20,7 +23,7 @@ Maze::Maze()
 	TileKey map[Maze::HEIGHT][Maze::WIDTH] = {
 		{ w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w },
 		{ w, _, _, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, _, w },
-		{ w, _, _, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, _, w },
+		{ w, _, f, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, w, w, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, w, w, w },
@@ -33,8 +36,8 @@ Maze::Maze()
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
 		{ _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ },
-		{ _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, w, _, _, _, _, _, _, _, _, _, _, _ },
-		{ _, _, _, _, _, _, _, _, _, _, _, _, w, _, p, _, w, _, _, _, _, _, _, _, _, _, _, _ },
+		{ _, _, _, _, _, _, _, _, _, _, _, _, w, _, g, _, w, _, _, _, _, _, _, _, _, _, _, _ },
+		{ _, _, _, _, _, _, _, _, _, _, _, _, w, _, o, _, w, _, _, _, _, _, _, _, _, _, _, _ },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, w, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, w, w, w, w, w, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
@@ -54,6 +57,7 @@ Maze::Maze()
 
 
 	m_player = new Player(0, 0, "Player", 200, 50);
+	m_fruit = new Fruit(0, 0);
 	//Generate the map
 	generate(map);
 }
@@ -114,12 +118,32 @@ Maze::Tile Maze::createTile(int x, int y, TileKey key)
 		addActor(tile.actor);
 		break;
 	case TileKey::GHOST:
+	{
 		tile.cost = 1.0f;
 		Ghost* ghost = new Ghost(position.x, position.y, 200, 150, 0xFF6666FF, this);
-		ghost->setTarget(m_player);
+		ghost->setTarget(m_fruit);
 		tile.actor = ghost;
 		addActor(tile.actor);
 		break;
+	}
+	case TileKey::FRUIT:
+	{
+		tile.cost = 1.0f;
+		m_fruit->getTransform()->setWorldPostion(position);
+		tile.actor = m_fruit;
+		addActor(tile.actor);
+		break;
+	}
+	case TileKey::GOAL:
+	{
+		tile.cost = 1.0f;
+		Actor* goal = new Actor(position.x, position.y, "Goal");
+		goal->addComponent(new SpriteComponent("Images/bullet.png"));
+		goal->getTransform()->setScale({ TILE_SIZE + 50, TILE_SIZE + 50});
+		tile.actor = goal;
+		addActor(tile.actor);
+		break;
+	}
 	}
 	return tile;
 }
