@@ -9,6 +9,7 @@ Maze::TileKey w = Maze::TileKey::WALL;
 Maze::TileKey s = Maze::TileKey::MUD;
 Maze::TileKey p = Maze::TileKey::PLAYER;
 Maze::TileKey g = Maze::TileKey::GHOST;
+Maze::TileKey f = Maze::TileKey::FRUIT;
 
 Maze::Maze()
 {

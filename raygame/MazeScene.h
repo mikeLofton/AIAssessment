@@ -22,7 +22,8 @@ public:
 		WALL,
 		MUD,
 		PLAYER,
-		GHOST
+		GHOST,
+		FRUIT
 	};
 
 	/// <summary>

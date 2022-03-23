@@ -12,6 +12,9 @@
     <Filter Include="Components">
       <UniqueIdentifier>{9d6cdb27-055d-451c-a357-070fb461e82d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\Behaviors">
+      <UniqueIdentifier>{d367fccc-d3ca-4d13-a1d3-aad6564b63de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,22 +53,10 @@
     <ClCompile Include="SpriteComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="InputComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Agent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SeekComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WanderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateMachineComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MazeScene.cpp">
@@ -80,10 +71,25 @@
     <ClCompile Include="Ghost.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="PathfindComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMoveComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachineComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderComponent.cpp">
+      <Filter>Components\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="SeekComponent.cpp">
+      <Filter>Components\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Fruit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -121,25 +127,10 @@
     <ClInclude Include="SpriteComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="InputComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SteeringComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Agent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SeekComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WanderComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachineComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MazeScene.h">
@@ -154,13 +145,31 @@
     <ClInclude Include="Ghost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PathfindComponent.h">
+    <ClInclude Include="DynamicArray.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PathfindComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMoveComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicArray.h">
+    <ClInclude Include="StateMachineComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SeekComponent.h">
+      <Filter>Components\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="WanderComponent.h">
+      <Filter>Components\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="SteeringComponent.h">
+      <Filter>Components\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Fruit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
