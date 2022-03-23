@@ -3,6 +3,7 @@
 #include "SeekComponent.h"
 #include "WanderComponent.h"
 #include "Transform2D.h"
+#include "Fruit.h"
 
 void StateMachineComponent::start()
 {
@@ -24,27 +25,21 @@ void StateMachineComponent::update(float deltaTime)
 	switch (m_currentState)
 	{
 	case IDLE:
-		m_seekComponent->setSteeringForce(0);
 		m_wanderComponent->setSteeringForce(0);
 
-		if (targetInRange)
-			setCurrentState(SEEK);
+		if (m_fruit->getActive() == true)
+			setCurrentState(SEEKFRUIT);
 
 		break;
-	case WANDER:
-		m_seekComponent->setSteeringForce(0);
-		m_wanderComponent->setSteeringForce(m_wanderForce);
-
-		if (targetInRange)
-			setCurrentState(SEEK);
+	case SEEKFRUIT:
+		
 
 		break;
-	case SEEK:
-		m_seekComponent->setSteeringForce(m_seekForce);
-		m_wanderComponent->setSteeringForce(0);
+	case SEEKGOAL:
 
-		if (!targetInRange)
-			setCurrentState(WANDER);
+		break;
+
+	case WANDERMAZE:
 
 		break;
 	}
