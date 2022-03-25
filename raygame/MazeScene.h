@@ -25,7 +25,10 @@ public:
 		MUD,
 		PLAYER,
 		GHOST,
-		FRUIT,
+		FRUIT1,
+		FRUIT2,
+		FRUIT3,
+		FRUIT4,
 		GOAL
 	};
 
@@ -91,7 +94,10 @@ private:
 	Tile m_grid[WIDTH][HEIGHT];
 
 	Player* m_player;
-	Fruit* m_fruit;
+	Fruit* m_fruit1;
+	Fruit* m_fruit2;
+	Fruit* m_fruit3;
+	Fruit* m_fruit4;
 	DynamicArray<Fruit*> m_fruitList = DynamicArray<Fruit*>();
 	Actor* m_goal;
 	Ghost* m_ghost;

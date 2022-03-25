@@ -14,7 +14,10 @@ Maze::TileKey w = Maze::TileKey::WALL;
 Maze::TileKey s = Maze::TileKey::MUD;
 Maze::TileKey p = Maze::TileKey::PLAYER;
 Maze::TileKey g = Maze::TileKey::GHOST;
-Maze::TileKey f = Maze::TileKey::FRUIT;
+Maze::TileKey f = Maze::TileKey::FRUIT1;
+Maze::TileKey r = Maze::TileKey::FRUIT2;
+Maze::TileKey u = Maze::TileKey::FRUIT3;
+Maze::TileKey t = Maze::TileKey::FRUIT4;
 Maze::TileKey o = Maze::TileKey::GOAL;
 
 Maze::Maze()
@@ -133,7 +136,7 @@ Maze::Tile Maze::createTile(int x, int y, TileKey key)
 		addActor(tile.actor);
 		break;
 	}
-	case TileKey::FRUIT:
+	case TileKey::FRUIT1:
 	{
 		tile.cost = 1.0f;
 		Fruit* fruit = new Fruit(position.x, position.y);
