@@ -75,7 +75,7 @@ void Ghost::onCollision(Actor* other)
 	if (other->getName() == "Goal" && m_hasFruit == true)
 	{
 		setHasFruit(false);
-		GameManager::m_fruitNum++;
+		GameManager::m_fruitNum--;
 	}
 }
 

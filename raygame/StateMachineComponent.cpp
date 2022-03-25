@@ -30,14 +30,22 @@ void StateMachineComponent::update(float deltaTime)
 		m_pathfindComp->setEnabled(false);
 		m_wanderComponent->setSteeringForce(0);
 
-		if (GameManager::getInstance()->getFruit()->getActive())
+		if (GameManager::getInstance()->getFruit1()->getActive())
 			setCurrentState(SEEKFRUIT);
 
 		break;
 	case SEEKFRUIT:
 		m_pathfindComp->setEnabled(true);
 		m_wanderComponent->setSteeringForce(0);
-		m_pathfindComp->setTarget(GameManager::getInstance()->getFruit());
+
+		if (GameManager::getInstance()->getFruit1()->getActive())
+			m_pathfindComp->setTarget(GameManager::getInstance()->getFruit1());
+		else if (GameManager::getInstance()->getFruit2()->getActive())
+			m_pathfindComp->setTarget(GameManager::getInstance()->getFruit2());
+		else if (GameManager::getInstance()->getFruit3()->getActive())
+			m_pathfindComp->setTarget(GameManager::getInstance()->getFruit3());
+		else if (GameManager::getInstance()->getFruit4()->getActive())
+			m_pathfindComp->setTarget(GameManager::getInstance()->getFruit4());
 
 		if (GameManager::getInstance()->getGhost()->getHasFruit())
 			setCurrentState(SEEKGOAL);
@@ -48,9 +56,9 @@ void StateMachineComponent::update(float deltaTime)
 		m_wanderComponent->setSteeringForce(0);
 		m_pathfindComp->setTarget(GameManager::getInstance()->getGoal());
 
-		if (GameManager::getInstance()->getGhost()->getHasFruit() == false && GameManager::getInstance()->getFruit()->getActive())
+		if (GameManager::m_fruitNum > 0 && GameManager::getInstance()->getGhost()->getHasFruit() == false)
 			setCurrentState(SEEKFRUIT);
-		else if (GameManager::getInstance()->getGhost()->getHasFruit() == false && GameManager::getInstance()->getFruit()->getActive() == false)
+		else if (GameManager::getInstance()->getGhost()->getHasFruit() == false && GameManager::m_fruitNum <= 0)
 			setCurrentState(WANDERMAZE);
 
 		break;
@@ -59,7 +67,7 @@ void StateMachineComponent::update(float deltaTime)
 		m_pathfindComp->setEnabled(false);
 		m_wanderComponent->setSteeringForce(300);
 
-		if (GameManager::getInstance()->getFruit()->getActive())
+		if (GameManager::getInstance()->getFruit1()->getActive())
 			setCurrentState(SEEKFRUIT);
 
 		break;

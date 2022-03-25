@@ -51,6 +51,7 @@ DynamicArray<NodeGraph::Node*> NodeGraph::findPath(Node* start, Node* goal)
 	DynamicArray<Node*> openList = DynamicArray<Node*>();
 	DynamicArray<Node*> closedList = DynamicArray<Node*>();
 	
+	currentNode = start;
 	openList.addItem(start);
 	
 
@@ -63,23 +64,35 @@ DynamicArray<NodeGraph::Node*> NodeGraph::findPath(Node* start, Node* goal)
 		if (currentNode == goal)
 			return reconstructPath(start, goal);	
 
-		for (int i = 0; i < openList[0]->edges.getLength(); i++)
+		openList.remove(currentNode);
+		//closedList.addItem(currentNode);
+
+		if (!closedList.contains(currentNode) && currentNode->walkable)
 		{
-			Node* targetNode = openList[0]->edges[i].target;
-
-			if (!openList.contains(targetNode) && !closedList.contains(targetNode))
+			for (int i = 0; i < currentNode->edges.getLength(); i++)
 			{
-				targetNode->gScore = openList[0]->gScore + openList[0]->edges[i].cost;
-				targetNode->hScore = manhattanDistance(currentNode, goal);
-				targetNode->fScore = targetNode->gScore + targetNode->hScore;
-				targetNode->previous = currentNode;
-				openList.addItem(targetNode);
-				targetNode->color = 0xFF0000FF;
-			}
-		}
+				Node* targetNode = currentNode->edges[i].target;
 
-		openList.remove(openList[0]);
-		closedList.addItem(currentNode);
+				if (targetNode->gScore == 0 || targetNode->gScore > currentNode->gScore + currentNode->edges[i].cost)
+				{
+					targetNode->gScore = currentNode->gScore + currentNode->edges[i].cost;
+					targetNode->hScore = manhattanDistance(targetNode, goal);
+					targetNode->fScore = targetNode->gScore + targetNode->hScore;
+					targetNode->previous = currentNode;
+					/*openList.addItem(targetNode);*/
+					/*targetNode->color = 0xFF0000FF;*/
+				}
+
+				if (!openList.contains(targetNode))
+				{
+					openList.addItem(targetNode);
+					targetNode->color = 0xFF0000FF;
+				}
+			}
+
+			closedList.addItem(currentNode);
+
+		}
 	}
 }
 

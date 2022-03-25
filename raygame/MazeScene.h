@@ -98,7 +98,6 @@ private:
 	Fruit* m_fruit2;
 	Fruit* m_fruit3;
 	Fruit* m_fruit4;
-	DynamicArray<Fruit*> m_fruitList = DynamicArray<Fruit*>();
 	Actor* m_goal;
 	Ghost* m_ghost;
 };
