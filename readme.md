@@ -4,8 +4,8 @@ Asessment 5
 This program is meant to showcase AI pathfinding and decision making.
 
 # How To Open Program
-* Download and extract the  zip file.
-* Within the extracted folder you'll find a file called .
+* Download and extract the AIBuild zip file.
+* Within the extracted folder you'll find a file called raygame.exe.
 * Double click the .exe to run the program
 # Demonstration Explanation 
 * The turtle actor will pathfind towards the cherries.
