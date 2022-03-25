@@ -11,6 +11,8 @@
 #include "AABBCollider.h"
 #include "Engine.h"
 #include "Fruit.h"
+#include "GameManager.h"
+
 
 Ghost::Ghost(float x, float y, float maxSpeed, float maxForce, int color, Maze* maze)
 	: Agent(x, y, "Ghost", maxSpeed, maxForce)
@@ -73,6 +75,7 @@ void Ghost::onCollision(Actor* other)
 	if (other->getName() == "Goal" && m_hasFruit == true)
 	{
 		setHasFruit(false);
+		GameManager::m_fruitNum++;
 	}
 }
 

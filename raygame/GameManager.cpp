@@ -5,10 +5,9 @@
 
 GameManager* GameManager::m_instance = nullptr;
 
-void GameManager::init(Ghost* ghost, Fruit* fruit, Actor* goal)
+void GameManager::init(Ghost* ghost, Actor* goal)
 {
 	m_ghost = ghost;
-	m_fruit = fruit;
 	m_goal = goal;
 }
 

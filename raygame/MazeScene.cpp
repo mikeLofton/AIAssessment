@@ -7,6 +7,7 @@
 #include "SpriteComponent.h"
 #include "GameManager.h"
 #include "AABBCollider.h"
+#include "DynamicArray.h"
 
 Maze::TileKey _ = Maze::TileKey::OPEN;
 Maze::TileKey w = Maze::TileKey::WALL;
@@ -52,7 +53,7 @@ Maze::Maze()
 		{ w, w, w, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, w, w, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
 		{ w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w },
-		{ w, _, _, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, _, w },
+		{ w, _, f, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, f, _, w },
 		{ w, _, _, _, _, w, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, w, _, _, _, _, w },
 		{ w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w },
 	};
@@ -60,9 +61,9 @@ Maze::Maze()
 
 	m_player = new Player(0, 0, "Player", 200, 50);
 	m_ghost = new Ghost(0, 0, 200, 150, 0xFF6666FF, this);
-	m_fruit = new Fruit(0, 0);
 	m_goal = new Actor(0, 0, "Goal");
-	GameManager::getInstance()->init(m_ghost, m_fruit, m_goal);
+	GameManager::getInstance()->init(m_ghost, m_goal);
+	GameManager::m_fruitNum = 0;
 
 	//Generate the map
 	generate(map);
@@ -127,7 +128,7 @@ Maze::Tile Maze::createTile(int x, int y, TileKey key)
 	{
 		tile.cost = 1.0f;
 		m_ghost->getTransform()->setWorldPostion(position);
-		m_ghost->setTarget(m_fruit);
+		m_ghost->setTarget(m_fruitList[GameManager::m_fruitNum]);
 		tile.actor = m_ghost;
 		addActor(tile.actor);
 		break;
@@ -135,8 +136,10 @@ Maze::Tile Maze::createTile(int x, int y, TileKey key)
 	case TileKey::FRUIT:
 	{
 		tile.cost = 1.0f;
-		m_fruit->getTransform()->setWorldPostion(position);
-		tile.actor = m_fruit;
+		Fruit* fruit = new Fruit(position.x, position.y);
+		tile.actor = fruit;
+		m_fruitList.addItem(fruit);
+		GameManager::getInstance()->setFruit(m_fruitList[GameManager::m_fruitNum]);
 		addActor(tile.actor);
 		break;
 	}
