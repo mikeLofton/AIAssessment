@@ -63,7 +63,7 @@ Maze::Maze()
 	m_ghost = new Ghost(0, 0, 200, 150, 0xFF6666FF, this);
 	m_goal = new Actor(0, 0, "Goal");
 	GameManager::getInstance()->init(m_ghost, m_goal);
-	GameManager::m_fruitNum = 0;
+	/*GameManager::m_fruitNum = 0;*/
 
 	//Generate the map
 	generate(map);

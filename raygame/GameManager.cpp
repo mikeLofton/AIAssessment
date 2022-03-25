@@ -4,6 +4,7 @@
 #include "Ghost.h"
 
 GameManager* GameManager::m_instance = nullptr;
+int GameManager::m_fruitNum = 0;
 
 void GameManager::init(Ghost* ghost, Actor* goal)
 {
