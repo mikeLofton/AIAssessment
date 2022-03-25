@@ -17,6 +17,8 @@
 Ghost::Ghost(float x, float y, float maxSpeed, float maxForce, int color, Maze* maze)
 	: Agent(x, y, "Ghost", maxSpeed, maxForce)
 {
+	//Initialize components for the ghost
+
 	m_maze = maze;
 	getTransform()->setScale({ Maze::TILE_SIZE,Maze::TILE_SIZE });
 
@@ -65,17 +67,17 @@ void Ghost::onCollision(Actor* other)
 		getMoveComponent()->setVelocity({ 0, 0 });
 	}
 
-	if (other->getName() == "Fruit")
+	if (other->getName() == "Fruit") //On collision with a fruit
 	{
-		Engine::getCurrentScene()->removeActor(other);
-		other->setActive(false);
-		setHasFruit(true);
+		Engine::getCurrentScene()->removeActor(other); //Remove the fruit
+		other->setActive(false); //Set it's active to false
+		setHasFruit(true); //Set the ghost's has fruit to true
 	}
 
-	if (other->getName() == "Goal" && m_hasFruit == true)
+	if (other->getName() == "Goal" && m_hasFruit == true) //On collison with goal
 	{
-		setHasFruit(false);
-		GameManager::m_fruitNum--;
+		setHasFruit(false); //Set has fruit to false
+		GameManager::m_fruitNum--; //Decrement the fruit num
 	}
 }
 

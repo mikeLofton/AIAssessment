@@ -13,9 +13,9 @@ void Fruit::start()
 {
 	Actor::start();
 
-	addComponent(new SpriteComponent("Images/Cherry.png"));
-	getTransform()->setScale({ Maze::TILE_SIZE + 10, Maze::TILE_SIZE + 10});
-	setCollider(new AABBCollider(Maze::TILE_SIZE, Maze::TILE_SIZE, this));
+	addComponent(new SpriteComponent("Images/Cherry.png")); //Add the cherry sprite
+	getTransform()->setScale({ Maze::TILE_SIZE + 10, Maze::TILE_SIZE + 10}); //Scale the sprite by tile size plus 10
+	setCollider(new AABBCollider(Maze::TILE_SIZE, Maze::TILE_SIZE, this)); //Add the collider
 }
 
 void Fruit::draw()

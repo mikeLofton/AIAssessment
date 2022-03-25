@@ -63,13 +63,14 @@ Maze::Maze()
 
 
 	m_player = new Player(0, 0, "Player", 200, 50);
-	m_ghost = new Ghost(0, 0, 200, 150, 0xFF6666FF, this);
-	m_goal = new Actor(0, 0, "Goal");
-	m_fruit1 = new Fruit(0, 0);
+	m_ghost = new Ghost(0, 0, 200, 150, 0xFF6666FF, this); //Create the ghost actor
+	m_goal = new Actor(0, 0, "Goal"); //Create the goal actor
+	m_fruit1 = new Fruit(0, 0); //Create fruit 1-4
 	m_fruit2 = new Fruit(0, 0);
 	m_fruit3 = new Fruit(0, 0);
 	m_fruit4 = new Fruit(0, 0);
-	GameManager::getInstance()->init(m_ghost, m_goal, m_fruit1, m_fruit2, m_fruit3, m_fruit4);
+	//Pass the variables into the game manager
+	GameManager::getInstance()->init(m_ghost, m_goal, m_fruit1, m_fruit2, m_fruit3, m_fruit4); 
 
 	//Generate the map
 	generate(map);

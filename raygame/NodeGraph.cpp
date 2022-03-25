@@ -47,27 +47,27 @@ DynamicArray<NodeGraph::Node*> NodeGraph::findPath(Node* start, Node* goal)
 	resetGraphScore(start);
 
 	//Insert algorithm here
-	Node* currentNode = new Node();
-	DynamicArray<Node*> openList = DynamicArray<Node*>();
-	DynamicArray<Node*> closedList = DynamicArray<Node*>();
+	Node* currentNode = new Node(); //Create a current node
+	DynamicArray<Node*> openList = DynamicArray<Node*>(); //Create an open list
+	DynamicArray<Node*> closedList = DynamicArray<Node*>(); //Create a closed list
 	
-	currentNode = start;
-	openList.addItem(start);
+	currentNode = start; //Set current node to start
+	openList.addItem(start); //Add start to the open list
 	
 
-	while (openList.getLength() > 0)
+	while (openList.getLength() > 0) //Loop while the open list lengh is more than zero
 	{
-		sortFScore(openList);
+		sortFScore(openList); //Sert the list by fscore
 
-		currentNode = openList[0];
+		currentNode = openList[0]; //Set curren node to the open list's first value
 
+		//If current node equals goal reconstruct path
 		if (currentNode == goal)
 			return reconstructPath(start, goal);	
 
-		openList.remove(currentNode);
-		//closedList.addItem(currentNode);
+		openList.remove(currentNode); //Remove the current node from open list
 
-		if (!closedList.contains(currentNode) && currentNode->walkable)
+		if (!closedList.contains(currentNode) && currentNode->walkable) //If closed list does not contain current node and current node is walkable
 		{
 			for (int i = 0; i < currentNode->edges.getLength(); i++)
 			{
@@ -79,8 +79,6 @@ DynamicArray<NodeGraph::Node*> NodeGraph::findPath(Node* start, Node* goal)
 					targetNode->hScore = manhattanDistance(targetNode, goal);
 					targetNode->fScore = targetNode->gScore + targetNode->hScore;
 					targetNode->previous = currentNode;
-					/*openList.addItem(targetNode);*/
-					/*targetNode->color = 0xFF0000FF;*/
 				}
 
 				if (!openList.contains(targetNode))
